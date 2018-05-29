@@ -17,6 +17,23 @@
   padding: 10px;
   margin: 0;
 }
+
+@media (max-width: 768px) {
+  .xss-news {
+    padding-top: 0;
+  }
+  .xss-news-browser {
+    display: block;
+    padding: 100px 10px 10px 10px;
+    box-sizing: border-box;
+  }
+  .xss-news .browser-box {
+    width: 100%;
+    margin: 10px 0;
+    box-sizing: border-box;
+    min-width: initial;
+  }
+}
 </style>
 
 <template>

@@ -33,11 +33,12 @@
   border: none;
 }
 .xss-lesson-nav {
-  height: 60px;
+  height: 80px;
   background: #607D8B;
 }
 .xss-lesson-title {
   margin: 0;
+  padding: 10px 0;
 }
 .xss-lesson-steps {
   display: flex;
@@ -70,6 +71,7 @@
 }
 .xss-lesson-tip-body {
   flex: 100%;
+  font-size: 12px;
 }
 .xss-lesson-tip-action {
   display: flex;
@@ -85,6 +87,27 @@
   font-size: 12px;
   outline: none;
 }
+
+@media (max-width: 768px) {
+  .xss-chat-browser {
+    display: block;
+    padding: 100px 10px 10px 10px;
+    box-sizing: border-box;
+  }
+  .xss-lesson-tip {
+    max-width: 90%;
+    left: 50%;
+    top: 0;
+    min-height: 160px;
+    transform: translate(-50%, 10px);
+  }
+  .xss-chat-browser .browser-box {
+    width: 100%;
+    margin: 10px 0;
+    box-sizing: border-box;
+    min-width: initial;
+  }
+}
 </style>
 
 <template>
@@ -97,15 +120,17 @@
         <div class="xss-lesson-step" :class="{ done: stepCount > index }" v-for="(step, index) in steps" @click="stepHandler(index)"></div>
       </div>
     </div>
-    <div class="xss-chat-browser">
-      <div class="xss-lesson-tip" v-show="state.tip">
-        <div class="xss-lesson-tip-body">
-          {{ state.tip }}
-        </div>
-        <div class="xss-lesson-tip-action">
-          <button class="xl-btn" @click="nextStep">下一步</button>
-        </div>
+
+    <div class="xss-lesson-tip" v-show="state.tip">
+      <div class="xss-lesson-tip-body">
+        {{ state.tip }}
       </div>
+      <div class="xss-lesson-tip-action">
+        <button class="xl-btn" @click="nextStep">下一步</button>
+      </div>
+    </div>
+
+    <div class="xss-chat-browser">
       <Browser>
         <SimpleIm client="A" :messages="state.msgs" :typein.sync="state.clientATypein" @new-message="sendMsg"></SimpleIm>
       </Browser>
@@ -256,6 +281,7 @@ export default {
   },
   methods: {
     async nextStep () {
+      this.state.tip = ''
       await this.stepHandler(this.stepCount)
     },
     async stepHandler (index) {
